@@ -4,4 +4,4 @@ export async function GET() {
   return NextResponse.json({ status: 'ok' })
 }
 
-export const runtime = "edge";
+export const runtime = "nodejs";

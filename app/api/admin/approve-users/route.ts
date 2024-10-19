@@ -20,4 +20,6 @@ export async function POST(req: Request) {
   return NextResponse.json({ message: 'User approved successfully' })
 }
 
-export const runtime = "edge";
+export const dynamic = 'force-dynamic'
+
+export const runtime = "nodejs";

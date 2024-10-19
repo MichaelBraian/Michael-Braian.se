@@ -4,4 +4,4 @@ export async function GET() {
   return NextResponse.json({ message: 'API is working' })
 }
 
-export const runtime = "edge";
+export const runtime = "nodejs";
