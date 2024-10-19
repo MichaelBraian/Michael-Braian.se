@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
+import prisma from '@/lib/prisma';
 import nodemailer from 'nodemailer';
 
+// This should be the same object used in send-otp route
 const otps: { [email: string]: string } = {};
 
 export async function POST(req: Request) {
@@ -50,3 +52,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Failed to send OTP' }, { status: 500 });
   }
 }
+
+export const runtime = "nodejs";

@@ -4,3 +4,5 @@ export default function handler(req: NextApiRequest, res: NextApiResponse, error
   console.error('NextAuth Error:', error)
   res.status(error.status || 500).end(error.message)
 }
+
+export const runtime = "nodejs";
