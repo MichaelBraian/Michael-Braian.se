@@ -20,4 +20,4 @@ export async function POST(req: Request) {
   return NextResponse.json({ message: 'User approved successfully' })
 }
 
-export const config = { runtime: 'edge' };
+export const runtime = "edge";
