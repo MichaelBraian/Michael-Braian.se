@@ -10,6 +10,11 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Send, RefreshCw, Paperclip } from 'lucide-react'
 import { useToast } from "@/components/ui/use-toast"
 
+// Define the Params interface
+interface Params {
+  id: string;
+}
+
 interface Message {
   role: 'user' | 'assistant'
   content: string
@@ -17,7 +22,14 @@ interface Message {
 }
 
 export default function ChatInterface() {
-  const { id } = useParams()
+  const params = useParams();
+  const id = params?.id;
+
+  if (!id || typeof id !== 'string') {
+    // Handle the case where id is not available or not a string
+    return <div>Invalid chat ID</div>;
+  }
+
   const [messages, setMessages] = useState<Message[]>([])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
