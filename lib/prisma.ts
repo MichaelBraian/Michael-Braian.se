@@ -1,17 +1,12 @@
 // lib/prisma.ts
-import { PrismaClient } from '@prisma/client/edge'
-import { withAccelerate } from '@prisma/extension-accelerate'
+import { PrismaClient } from '@prisma/client';
+import { withAccelerate } from '@prisma/extension-accelerate';
 
-const prismaClientSingleton = () => {
-  return new PrismaClient().$extends(withAccelerate())
-}
+// Standard Prisma Client instance for NextAuth
+export const prisma = new PrismaClient();
 
-type PrismaClientSingleton = ReturnType<typeof prismaClientSingleton>
+// Extended Prisma Client instance with Accelerate extension
+export const prismaWithAccelerate = prisma.$extends(withAccelerate());
 
-const globalForPrisma = globalThis as unknown as {
-  prisma: PrismaClientSingleton | undefined
-}
-
-const prisma = globalForPrisma.prisma ?? prismaClientSingleton()
-
-export default prisma
+// Export the extended client as default if you prefer to use it elsewhere
+export default prismaWithAccelerate;
