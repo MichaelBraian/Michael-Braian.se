@@ -1,0 +1,4 @@
+{
+  "/login/page": "app/login/page.js",
+  "/api/env-check/route": "app/api/env-check/route.js"
+}
