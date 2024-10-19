@@ -14,3 +14,5 @@ export async function POST() {
     return NextResponse.json({ error: 'An error occurred while resetting the chat' }, { status: 500 });
   }
 }
+
+export const config = { runtime: 'edge' };

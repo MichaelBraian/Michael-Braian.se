@@ -21,6 +21,7 @@ const nextConfig = {
   },
   // Enable source maps in production for better error tracking
   productionBrowserSourceMaps: true,
+  target: 'serverless'
 }
 
 module.exports = nextConfig
