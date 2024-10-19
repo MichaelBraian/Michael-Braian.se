@@ -12,4 +12,4 @@ export async function GET() {
   }
 }
 
-export const config = { runtime: 'edge' };
+export const runtime = "edge";
