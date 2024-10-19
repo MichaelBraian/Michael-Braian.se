@@ -6,9 +6,11 @@
     "dev": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "query": "ts-node --compiler-options '{\"module\":\"CommonJS\"}' scripts/query-db.ts"
   },
   "dependencies": {
+    "@prisma/client": "^5.21.1",
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-label": "^2.1.0",
@@ -18,6 +20,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
+    "dotenv": "^16.0.3",
     "formidable": "^3.5.2",
     "input-otp": "^1.2.4",
     "lucide-react": "^0.453.0",
@@ -41,7 +44,9 @@
     "autoprefixer": "^10.4.20",
     "babel-loader": "^9.2.1",
     "postcss": "^8.4.47",
+    "prisma": "^5.21.1",
     "tailwindcss": "^3.4.14",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.3"
   },
   "lint-staged": {
@@ -49,5 +54,8 @@
       "eslint --fix",
       "prettier --write"
     ]
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   }
 }

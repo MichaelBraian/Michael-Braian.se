@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import prisma from '@/lib/prisma';
 
 // This should be the same object used in send-otp route
 const otps: { [email: string]: string } = {};
