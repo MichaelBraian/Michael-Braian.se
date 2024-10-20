@@ -1,9 +1,5 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 import nodemailer from 'nodemailer';
-
-// This should be the same object used in send-otp route
-const otps: { [email: string]: string } = {};
 
 export async function POST(req: Request) {
   try {
@@ -15,12 +11,9 @@ export async function POST(req: Request) {
 
     // Generate a 6-digit OTP
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    otps[email] = otp;
+    // Store OTP (you might want to use a more persistent storage in production)
+    // otps[email] = otp;
 
-    // For development purposes, we'll skip actual email sending
-    console.log('Development mode: OTP for', email, 'is', otp);
-
-    // In production, you would use a proper email service
     if (process.env.NODE_ENV === 'production') {
       // Configure nodemailer with your email settings
       const transporter = nodemailer.createTransport({
@@ -44,14 +37,23 @@ export async function POST(req: Request) {
         console.log('Message sent: %s', info.messageId);
       } catch (sendError) {
         console.error('Detailed email sending error:', sendError);
-        return NextResponse.json({ error: 'Failed to send OTP email', details: sendError.message }, { status: 500 });
+        return NextResponse.json({ 
+          error: 'Failed to send OTP email', 
+          details: sendError instanceof Error ? sendError.message : 'Unknown error' 
+        }, { status: 500 });
       }
+    } else {
+      // For development purposes, we'll skip actual email sending
+      console.log('Development mode: OTP for', email, 'is', otp);
     }
 
     return NextResponse.json({ message: 'OTP sent successfully' });
   } catch (error) {
     console.error('Failed to process OTP request:', error);
-    return NextResponse.json({ error: 'Failed to send OTP' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Failed to send OTP',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }
 
