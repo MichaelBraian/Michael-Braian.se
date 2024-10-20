@@ -1,0 +1,1 @@
+{"version":1,"functions":{"/api/admin/approve-users":{},"/api/auth-check":{},"/api/auth/[...nextauth]":{},"/api/auth/providers":{},"/api/auth/session-check":{},"/api/auth/session":{},"/api/chat/reset":{},"/api/chat":{},"/api/db-test":{},"/api/env-check":{},"/api/health":{},"/api/send-otp":{},"/api/test":{}}}
