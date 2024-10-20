@@ -1,25 +1,13 @@
 import { NextResponse } from 'next/server'
-import prisma from '@/lib/prisma'
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany({
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        status: true,
-      }
-    })
-    return NextResponse.json({ 
-      message: 'Database connection successful', 
-      usersCount: users.length,
-      users: users
-    })
+    // Remove Prisma-related code
+    // For now, we'll just return a placeholder message
+    return NextResponse.json({ message: "Database connection removed. Please implement a new database solution." });
   } catch (error) {
-    console.error('Database connection error:', error)
-    return NextResponse.json({ error: 'Failed to connect to the database' }, { status: 500 })
+    console.error('Error:', error);
+    return NextResponse.json({ error: 'An error occurred while processing your request' }, { status: 500 });
   }
 }
 

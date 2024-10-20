@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
 
 // This should be the same object used in send-otp route
 const otps: { [email: string]: string } = {};
@@ -15,16 +14,9 @@ export async function POST(req: Request) {
     if (otps[email] === otp) {
       delete otps[email]; // Remove the OTP after successful verification
 
-      // Check user status
-      const user = await prisma.user.findUnique({ where: { email } });
-
-      if (!user) {
-        return NextResponse.json({ error: 'User not found' }, { status: 404 });
-      }
-
-      if (user.status === 'pending') {
-        return NextResponse.json({ error: 'Your account is pending approval' }, { status: 403 });
-      }
+      // Here, you would check the user status in your database
+      // Since we've removed Prisma, you'll need to implement this using your new database solution
+      // For now, we'll just return a success message
 
       return NextResponse.json({ message: 'OTP verified successfully' });
     } else {

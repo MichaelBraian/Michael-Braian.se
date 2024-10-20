@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server'
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../auth/[...nextauth]/options"
-import prisma from '@/lib/prisma'
 
 export async function GET() {
   const session = await getServerSession(authOptions)
@@ -10,11 +9,11 @@ export async function GET() {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
   }
 
-  const pendingUsers = await prisma.user.findMany({
-    where: { status: 'pending' },
-    select: { id: true, email: true },
-  })
+  // Here, you would fetch pending users from your database
+  // Since we've removed Prisma, you'll need to implement this using your new database solution
+  // For now, we'll just return an empty array
+
+  const pendingUsers: { id: string, email: string }[] = []
 
   return NextResponse.json({ users: pendingUsers })
 }
-

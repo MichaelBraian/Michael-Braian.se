@@ -43,7 +43,7 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "types/**/*.d.ts"
-  ],
+, "scripts/generate-password.js"  ],
   "exclude": [
     "node_modules"
   ]
