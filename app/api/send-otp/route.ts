@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import prisma from '@/lib/prisma';
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../[...nextauth]/options";
+import { authOptions } from "../auth/[...nextauth]/options";
 
 // This should be the same object used in send-otp route
 const otps: { [email: string]: string } = {};
