@@ -24,8 +24,9 @@ export async function POST(req: Request) {
     if (process.env.NODE_ENV === 'production') {
       // Configure nodemailer with your email settings
       const transporter = nodemailer.createTransport({
-        // Use a reliable email service here
-        service: 'gmail',
+        host: 'send.one.com',
+        port: 465,
+        secure: true, // Use SSL
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS
@@ -33,16 +34,17 @@ export async function POST(req: Request) {
       });
 
       try {
-        await transporter.sendMail({
+        const info = await transporter.sendMail({
           from: `"AI Chat Dashboard" <${process.env.EMAIL_USER}>`,
           to: email,
           subject: "Your OTP for Login",
           text: `Your OTP is: ${otp}. It will expire in 5 minutes.`,
           html: `<b>Your OTP is: ${otp}</b><br>It will expire in 5 minutes.`
         });
+        console.log('Message sent: %s', info.messageId);
       } catch (sendError) {
-        console.error('Failed to send email:', sendError);
-        return NextResponse.json({ error: 'Failed to send OTP email' }, { status: 500 });
+        console.error('Detailed email sending error:', sendError);
+        return NextResponse.json({ error: 'Failed to send OTP email', details: sendError.message }, { status: 500 });
       }
     }
 
