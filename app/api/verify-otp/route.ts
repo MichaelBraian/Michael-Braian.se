@@ -35,3 +35,5 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Failed to verify OTP', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
   }
 }
+
+export const dynamic = 'force-dynamic';
