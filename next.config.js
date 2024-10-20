@@ -9,6 +9,8 @@ const nextConfig = {
     }
     return config
   },
+  // Add this section
+  transpilePackages: ['autoprefixer', 'postcss', 'tailwindcss'],
 }
 
 require('dotenv').config();
