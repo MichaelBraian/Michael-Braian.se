@@ -9,37 +9,23 @@ const otps: { [email: string]: string } = {};
 
 export async function POST(req: Request) {
   try {
-    const { email, otp } = await req.json();
+    const { email } = await req.json();
 
     if (!email) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    if (!otps[email]) {
-      return NextResponse.json({ error: 'No OTP found for this email' }, { status: 400 });
-    }
+    // Generate a new OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    otps[email] = otp;
 
-    if (otps[email] === otp) {
-      delete otps[email]; // Remove the OTP after successful verification
+    // TODO: Implement email sending logic here
+    console.log(`OTP for ${email}: ${otp}`); // For testing purposes
 
-      // Check user status
-      const user = await prisma.user.findUnique({ where: { email } });
-
-      if (!user) {
-        return NextResponse.json({ error: 'User not found' }, { status: 404 });
-      }
-
-      if (user.status === 'pending') {
-        return NextResponse.json({ error: 'Your account is pending approval' }, { status: 403 });
-      }
-
-      return NextResponse.json({ message: 'OTP verified successfully' });
-    } else {
-      return NextResponse.json({ error: 'Invalid OTP' }, { status: 400 });
-    }
+    return NextResponse.json({ message: 'OTP sent successfully' });
   } catch (error) {
-    console.error('Error verifying OTP:', error);
-    return NextResponse.json({ error: 'Failed to verify OTP', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
+    console.error('Error sending OTP:', error);
+    return NextResponse.json({ error: 'Failed to send OTP', details: error instanceof Error ? error.message : 'Unknown error' }, { status: 500 });
   }
 }
 
